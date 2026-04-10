@@ -7,8 +7,18 @@ import { motion, AnimatePresence } from 'motion/react';
 // Custom Logo Component
 const SplitMateLogo = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <circle cx="9" cy="12" r="7" fill="currentColor" fillOpacity="0.5" />
-    <circle cx="15" cy="12" r="7" fill="currentColor" fillOpacity="0.9" />
+    <defs>
+      <linearGradient id="logoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#4f46e5" />
+        <stop offset="100%" stopColor="#6366f1" />
+      </linearGradient>
+      <linearGradient id="logoGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#10b981" />
+        <stop offset="100%" stopColor="#059669" />
+      </linearGradient>
+    </defs>
+    <circle cx="9" cy="12" r="7" fill="url(#logoGrad1)" fillOpacity="0.6" />
+    <circle cx="15" cy="12" r="7" fill="url(#logoGrad2)" fillOpacity="0.8" />
   </svg>
 );
 

@@ -15,6 +15,11 @@ SplitMate is a premium, mobile-first web application designed to help friends tr
 - **Responsive Design**: Optimized for mobile devices with a "native app" feel, including hidden scrollbars and touch-friendly interactions.
 - **Toast Notifications**: Elegant feedback for every action you take.
 
+## 🎨 Brand Assets
+
+- **App Icon**: Located at `/public/logo.svg`
+- **Full Logo**: Located at `/public/full-logo.svg`
+
 ## 🚀 Tech Stack
 
 - **Frontend**: React 18 + TypeScript
