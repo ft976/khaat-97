@@ -47,6 +47,7 @@ export default function App() {
   const [activeFriendId, setActiveFriendId] = useState<string | null>(null);
   const [isAddingFriend, setIsAddingFriend] = useState(false);
   const [newFriendName, setNewFriendName] = useState('');
+  const [newFriendAvatar, setNewFriendAvatar] = useState('');
   const [toasts, setToasts] = useState<{id: string, message: string}[]>([]);
 
   const showToast = (message: string) => {
@@ -67,12 +68,14 @@ export default function App() {
     const newFriend: Friend = {
       id: crypto.randomUUID(),
       name: newFriendName.trim(),
+      avatarUrl: newFriendAvatar.trim() || undefined,
       balance: 0,
       transactions: [],
     };
     
     setFriends([newFriend, ...friends]);
     setNewFriendName('');
+    setNewFriendAvatar('');
     setIsAddingFriend(false);
     showToast(`Added ${newFriend.name} to your list`);
   };
@@ -243,8 +246,12 @@ export default function App() {
                         className="w-full bg-white border border-zinc-200/60 p-4 rounded-3xl shadow-sm flex items-center justify-between hover:shadow-md hover:border-indigo-200 active:scale-[0.98] transition-all text-left group"
                       >
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 bg-gradient-to-br from-indigo-50 to-blue-50 text-indigo-600 rounded-full flex items-center justify-center font-display font-bold text-xl shrink-0 group-hover:scale-110 transition-transform shadow-inner border border-indigo-100/50">
-                            {friend.name.charAt(0).toUpperCase()}
+                          <div className="w-12 h-12 bg-gradient-to-br from-indigo-50 to-blue-50 text-indigo-600 rounded-full flex items-center justify-center font-display font-bold text-xl shrink-0 group-hover:scale-110 transition-transform shadow-inner border border-indigo-100/50 overflow-hidden">
+                            {friend.avatarUrl ? (
+                              <img src={friend.avatarUrl} alt={friend.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                            ) : (
+                              friend.name.charAt(0).toUpperCase()
+                            )}
                           </div>
                           <div className="overflow-hidden">
                             <h4 className="font-bold text-zinc-900 truncate text-base">{friend.name}</h4>
@@ -304,7 +311,7 @@ export default function App() {
                         </button>
                       </div>
                       <form onSubmit={addFriend}>
-                        <div className="mb-8">
+                        <div className="mb-4">
                           <label htmlFor="name" className="block text-sm font-bold text-zinc-700 mb-2">Friend's Name</label>
                           <input
                             type="text"
@@ -315,6 +322,17 @@ export default function App() {
                             placeholder="e.g. Rahul, Priya..."
                             autoFocus
                             required
+                          />
+                        </div>
+                        <div className="mb-8">
+                          <label htmlFor="avatar" className="block text-sm font-bold text-zinc-700 mb-2">Profile Picture URL (Optional)</label>
+                          <input
+                            type="url"
+                            id="avatar"
+                            value={newFriendAvatar}
+                            onChange={(e) => setNewFriendAvatar(e.target.value)}
+                            className="w-full px-4 py-3.5 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all font-medium text-zinc-900 placeholder:text-zinc-400"
+                            placeholder="https://example.com/photo.jpg"
                           />
                         </div>
                         <button
@@ -450,8 +468,12 @@ function FriendLedger({
             <ArrowLeft className="w-6 h-6" />
           </button>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-50 to-blue-50 text-indigo-600 rounded-full flex items-center justify-center font-display font-bold text-lg shrink-0 border border-indigo-100/50">
-              {friend.name.charAt(0).toUpperCase()}
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-50 to-blue-50 text-indigo-600 rounded-full flex items-center justify-center font-display font-bold text-lg shrink-0 border border-indigo-100/50 overflow-hidden">
+              {friend.avatarUrl ? (
+                <img src={friend.avatarUrl} alt={friend.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              ) : (
+                friend.name.charAt(0).toUpperCase()
+              )}
             </div>
             <h2 className="text-lg font-bold text-zinc-900 truncate max-w-[160px]">{friend.name}</h2>
           </div>
